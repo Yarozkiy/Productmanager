@@ -53,4 +53,20 @@ class ProductRepositoryTest {
         repository.removeById(010);
         assertEquals(repository.findAll().length, 4);
     }
+
+    @Test
+    public void deletingAnExistingItem() {
+        repository.removeById(1);
+        Product[] actual = repository.findAll();
+        Product[] expected = new Product[]{second, third};
+        assertArrayEquals(actual, expected);
+
+    }
+
+    @Test
+    public void attemptToDeleteNonExistentElement() {
+        assertThrows(NotFoundException.class, () -> repository.removeById(5));
+    }
 }
+
+
