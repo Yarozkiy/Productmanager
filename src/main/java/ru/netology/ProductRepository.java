@@ -11,8 +11,18 @@ public class ProductRepository {
         tmp[lastIndex] = item;
         items = tmp;
     }
-
-    public void removeById(int id) {
+    public Product findById(int id) {
+        for (Product product : items) {
+            if (product.getId()==id) {
+                return product;
+            }
+        }
+        return null;
+    }
+    public void removeById(int id) throws NotFoundException {
+        if (findById(id) == null){
+            throw new NotFoundException("Запрощенного товара с id "+ id +" Нет");
+        }
         int length = items.length - 1;
         Product[] tmp = new Product[length];
         int index = 0;
